@@ -41,12 +41,28 @@ stock-market-prediction-ml
 
 
 ---
+## Project Demo Flow
+
+1. User selects a stock (Apple, Tesla, Reliance)
+2. Historical stock data is fetched using yfinance
+3. Data is preprocessed and scaled
+4. LSTM model is trained on past stock prices
+5. Model predicts future stock trends
+6. Results are visualized using graphs
 
 ## Model
 
 The project uses a **Bidirectional LSTM model** to capture time-series dependencies in stock price movements.
 
 ---
+
+## Key Concepts Used
+
+- Time Series Forecasting
+- LSTM (Long Short-Term Memory)
+- Data Normalization
+- Sequential Modeling
+- Technical Indicators (SMA, RSI)
 
 ## Evaluation Metrics
 
