@@ -20,8 +20,7 @@ data['RSI'] = 100 - (100 / (1 + (data['Close'].diff(1).clip(lower=0).rolling(14)
 -data['Close'].diff(1).clip(upper=0).rolling(14).mean())))
 
 # Fill missing values
-data.fillna(method='bfill', inplace=True)
-
+data = data.bfill()
 # Select relevant features
 data = data[['Close', 'Volume', 'SMA_10', 'SMA_50', 'RSI']]
 
@@ -53,10 +52,10 @@ model_filename = "30days.h5"
 
 # Check if model already exists
 if os.path.exists(model_filename):
-    print("✅ Loading existing model...")
+    print(" Loading existing model...")
     model = load_model(model_filename)
 else:
-    print("🚀 Training a new LSTM model...")
+    print(" Training a new LSTM model...")
 
     # Build LSTM Model
     model = Sequential([
@@ -79,7 +78,7 @@ else:
 
     # Save the model
     model.save(model_filename)
-    print(f"✅ Model saved as '{model_filename}'!")
+    print(f" Model saved as '{model_filename}'!")
 
 # Make predictions
 predicted_prices = model.predict(X_test)
@@ -90,7 +89,7 @@ actual_prices = scaler.inverse_transform(np.hstack((y_test.reshape(-1,1), np.zer
 
 # Compute R² Score
 r2 = r2_score(actual_prices, predicted_prices)
-print(f"\n📊 Model Efficiency: R² Score = {r2:.4f} (Higher is better)")
+print(f"\n Model Efficiency: R² Score = {r2:.4f} (Higher is better)")
 
 # Compute error metrics
 mae = mean_absolute_error(actual_prices, predicted_prices)
@@ -98,11 +97,11 @@ mse = mean_squared_error(actual_prices, predicted_prices)
 rmse = np.sqrt(mse)
 mape = np.mean(np.abs((actual_prices - predicted_prices) / actual_prices)) * 100
 
-print(f"\n📉 Model Performance Metrics:")
-print(f"✅ Mean Absolute Error (MAE): {mae:.2f}")
-print(f"✅ Mean Squared Error (MSE): {mse:.2f}")
-print(f"✅ Root Mean Squared Error (RMSE): {rmse:.2f}")
-print(f"✅ Mean Absolute Percentage Error (MAPE): {mape:.2f}%")
+print(f"\n Model Performance Metrics:")
+print(f" Mean Absolute Error (MAE): {mae:.2f}")
+print(f" Mean Squared Error (MSE): {mse:.2f}")
+print(f" Root Mean Squared Error (RMSE): {rmse:.2f}")
+print(f" Mean Absolute Percentage Error (MAPE): {mape:.2f}%")
 
 # 30-Day Future Prediction
 future_input = test_data[-seq_length:]  # Last 50 days of test data
@@ -123,7 +122,7 @@ future_predictions = scaler.inverse_transform(np.hstack((np.array(future_predict
                                                           np.zeros((30, data.shape[1]-1)))))[:, 0]
 
 # Print predicted stock prices for 30 days
-print("\n📅 Predicted Stock Prices for the Next 30 Days:\n")
+print("\n Predicted Stock Prices for the Next 30 Days:\n")
 for i, price in enumerate(future_predictions, 1):
     print(f"Day {i}: ${price:.2f}")
 
@@ -142,7 +141,7 @@ plt.show()
 plt.figure(figsize=(12, 6))
 plt.plot(range(len(data)), data['Close'], label="Historical Prices", color='blue')
 plt.plot(range(len(data), len(data) + 30), future_predictions, label="30-Day Forecast", color='green', linestyle='dashed')
-plt.title(f"📈 30-Day Stock Price Prediction for {ticker}")
+plt.title(f" 30-Day Stock Price Prediction for {ticker}")
 plt.xlabel("Days")
 plt.ylabel("Stock Price")
 plt.legend()

@@ -60,4 +60,9 @@ The project uses a **Bidirectional LSTM model** to capture time-series dependenc
 
 - Add more technical indicators  
 - Deploy as a web application  
-- Improve prediction accuracy using advanced models  
+- Improve prediction accuracy using advanced models 
+
+## Output
+
+### Apple Stock Prediction
+![Apple Prediction](images/apple_prediction.png)

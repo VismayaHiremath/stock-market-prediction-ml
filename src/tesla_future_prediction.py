@@ -16,7 +16,7 @@ data['SMA_10'] = data['Close'].rolling(window=10).mean()
 data['SMA_50'] = data['Close'].rolling(window=50).mean()
 data['RSI'] = 100 - (100 / (1 + (data['Close'].diff(1).clip(lower=0).rolling(14).mean() /
                                  -data['Close'].diff(1).clip(upper=0).rolling(14).mean())))
-data.fillna(method='bfill', inplace=True)
+data = data.bfill()
 data = data[['Close', 'Volume', 'SMA_10', 'SMA_50', 'RSI']]
 
 # Normalize the data
